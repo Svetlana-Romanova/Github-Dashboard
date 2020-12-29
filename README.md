@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+Тестовое задание: Github Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Главная страница – список репозиториев с возможностью поиска и страницами
+Карточка репозитория – страница с более детальной информацией по репозиторию
 
-## Available Scripts
+При введении текста в Поле для поиска, должен происходить поиск по названию и выводиться его результат в Список репозиториев ниже.
 
-In the project directory, you can run:
+Если в поле ничего не введено, то показывается список 10ти самых популярных репозиториев.
 
-### `yarn start`
+Порядок сортировки репозиториев – по в кол-ву звёзд на github (от большего к меньшему)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Примерная структура элементов списка:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[Название репозитория] - [кол-во звёзд на github] - [дата последнего коммита] - [ссылка на Github]
 
-### `yarn test`
+Внизу страницы есть Paginator вида [1, 2, 3, 4, 5]. Не показывать больше 10ти страниц.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+При клике на вторую страницу показываются репозитории с 11 по 20 При клике на третью страницу показываются репозитории с 21 по 30 … и т.д.
 
-### `yarn build`
+Выбранная страница в Paginator должна отличаться по стилю от всех остальных.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+При перезагрузке страницы состояние выбранных фильтров (поиска и страницы) должно сохраняться и использоваться для первоначального запроса.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Сохранять ответ от API на тысячи репозиториев в приложении нельзя, поиск должен происходить на стороне API.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+При клике на название репозитория происходит переход на Карточку репозитория.
 
-### `yarn eject`
+Карточка репозитория
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Она должна иметь следующую структуру:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Название репозитория] - [кол-во звёзд на github] - [дата последнего коммита]
+[Фото владельца репозитория, если есть] - [Nickname владельца репозитория с ссылкой на него]
+[Список используемых языков в репозитории]
+[Краткое описание репозитория]
+[10 наиболее активных контрибьютеров]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
