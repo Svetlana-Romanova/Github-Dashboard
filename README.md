@@ -1,3 +1,5 @@
+https://svetlana-romanova.github.io/github-dashboard/
+
 Тестовое задание: Github Dashboard
 
 Главная страница – список репозиториев с возможностью поиска и страницами

@@ -1,69 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import styled from "styled-components";
 import { withRouter } from 'react-router-dom';
 import GetRandomId from '../getRandomId';
 
-const Ul = styled.ul `
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    list-style-type: none;
+import styled from 'styled-components';
+
+const Ul = styled.ul`
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style-type: none;
 `;
 
-const Li = styled.li `
-    padding: 0.7rem;
+const Li = styled.li`
+  padding: 0.7rem;
 `;
 
-const StyledLink = styled(Link) `
-    text-decoration: none;
-    color: black;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
-const Active = styled.a `
-    color: red;
+const Active = styled.a`
+  color: red;
 `;
 
-const Pagination = ({pageNumber, match}) => {
+const Pagination = ({ match, pageNumber, totalCount }) => {
+  let { number } = match.params;
+  let [countPages, perPage] = totalCount;
 
-    let { number } = match.params;
+  const [numbersArr, setNumberArr] = useState([]);
+  const pages = countPages / perPage;
+  const newCountPages = pages !== 0 ? (pages > 10 ? 10 : Math.ceil(pages)) : 1;
 
-    const [ numberStart, setNumberStart ] = useState(0);
-    const [ numbersArr, setNumberArr ] = useState([]);
-
-    if(numberStart < 10) {
-        let nextNumber = numberStart + 1;
-        setNumberStart(nextNumber);
-        setNumberArr([...numbersArr, nextNumber]);
+  useEffect(() => {
+    let arr = [];
+    for (let i = 1; i <= newCountPages; i++) {
+      arr.push(i);
+      setNumberArr(arr);
     }
+  }, [newCountPages]);
 
-    const renderPaginator = (selectedNumber = 1) => {
-        const listNumbers = numbersArr.map((num) => {
-            const key = GetRandomId();
+  const renderPaginator = useCallback(
+    (selectedNumber) => {
+      if (selectedNumber > newCountPages || typeof selectedNumber === 'undefined') {
+        selectedNumber = 1;
+      }
 
-            if(num === +selectedNumber) {
-                return (
-                    <Li key={key}>
-                        <Active to={`/page/${num}`} className='active'>{num}</Active>
-                    </Li>
-                )
-            } else {
-                return (
-                    <Li key={key}>
-                        <StyledLink to={`/page/${num}`}>{num}</StyledLink>
-                    </Li>
-                )
-            }
-        })
-        return listNumbers;
-    }
+      const listNumbers = numbersArr.map((num) => {
+        const key = GetRandomId();
+        if (num === +selectedNumber) {
+          return (
+            <Li key={key}>
+              <Active to={`/page/${num}`} className="active">
+                {num}
+              </Active>
+            </Li>
+          );
+        } else {
+          return (
+            <Li key={key}>
+              <StyledLink to={`/page/${num}`}>{num}</StyledLink>
+            </Li>
+          );
+        }
+      });
+      return listNumbers;
+    },
+    [newCountPages, numbersArr]
+  );
 
-
-    return (
-        <Ul>
-            {renderPaginator(number)}
-        </Ul>
-    )
-}
+  return <Ul>{renderPaginator(number)}</Ul>;
+};
 
 export default withRouter(Pagination);
