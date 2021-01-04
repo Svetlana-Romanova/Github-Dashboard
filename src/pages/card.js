@@ -7,27 +7,26 @@ import Spinner from '../spinner';
 
 import styled from 'styled-components';
 
-const Table = styled.table`
+const Table = styled.div`
   margin: 3rem auto;
   border: 1px solid grey;
 `;
 
-const Tr = styled.tr`
-  width: 100%;
-  display: table;
-  margin: 1.5rem 0;
-  text-align: center;
+const Block = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: ${(props) => (props.between ? 'space-between' : 'space-around')};
+  align-items: center;
 `;
 
-const Td = styled.td`
-  width: ${(props) => (props.block ? '100%' : '200px')};
+const Span = styled.span `
+  flex: 1;
+  margin: 1rem 0.5rem;
   text-align: center;
-  vertical-align: middle;
-  font-weight: ${(props) => (props.name ? 'bold' : 'regular')};
-  font-size: ${(props) => (props.name ? '20px' : '16px')};
 `;
 
 const Img = styled.img`
+  margin: 1.5rem 0;
   width: 130px;
   border-radius: 100px;
 `;
@@ -68,12 +67,12 @@ const Card = ({ itemName, value }) => {
         const contributorsArr = users.map((user) => {
           const key = GetRandomId();
           return (
-            <Tr key={key}>
-              <Td>
+            <Block key={key}>
+              {/* <div> */}
                 <Img src={user.avatar_url} alt="avatar" />
-              </Td>
-              <Td>{user.login}</Td>
-            </Tr>
+              {/* </div> */}
+              <span>{user.login}</span>
+            </Block>
           );
         });
         return contributorsArr;
@@ -87,34 +86,34 @@ const Card = ({ itemName, value }) => {
       if (selectedRepo) {
         return (
           <React.Fragment>
-            <Tr>
-              <Td name="name">{repo.name}</Td>
-              <Td>Stargazers:<br />{repo.stargazers_count}
-              </Td>
-              <Td>Last commit:<br />{repo.pushed_at}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
+            <Block>
+              <Span name="name">{repo.name}</Span>
+              <Span>Stargazers:<br />{repo.stargazers_count}
+              </Span>
+              <Span>Last commit:<br />{repo.pushed_at}
+              </Span>
+            </Block>
+            <Block between>
+              <Span>
                 <Img src={repo.owner.avatar_url} alt="avatar" />
-              </Td>
-              <Td>Nickname:<br />{repo.owner.login}
-              </Td>
-              <Td>
+              </Span>
+              <Span>Nickname:<br />{repo.owner.login}
+              </Span>
+              <Span>
                 <a href={repo.owner.html_url}>{repo.owner.html_url}</a>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td block>Languages:<br />{repo.language}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td block>Description:<br />{repo.description}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td block>Contributors:</Td>
-            </Tr>
+              </Span>
+            </Block>
+            <Block>
+              <Span block>Languages:<br />{repo.language}
+              </Span>
+            </Block>
+            <Block>
+              <Span block>Description:<br />{repo.description}
+              </Span>
+            </Block>
+            <Block>
+              <Span block>Contributors:</Span>
+            </Block>
             {renderContributors(contributors)}
           </React.Fragment>
         );
@@ -133,7 +132,7 @@ const Card = ({ itemName, value }) => {
       {errorIndicator}
       {spinner}
       <Table>
-        <tbody>{content}</tbody>
+        {content}
       </Table>
     </React.Fragment>
   );

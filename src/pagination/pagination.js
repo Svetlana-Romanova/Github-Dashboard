@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const Ul = styled.ul`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding: 0;
   list-style-type: none;
 `;

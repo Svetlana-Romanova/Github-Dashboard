@@ -10,12 +10,12 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
+  text-align: center;
   font-size: 1.5rem;
   color: grey;
 `;
 
 const Input = styled.input`
-  width: 25rem;
   background-color: lightgray;
   font-size: 18px;
   padding: 1rem;
